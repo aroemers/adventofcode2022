@@ -1,5 +1,5 @@
 (ns day02
-  (:require [clojure.java.io :as io]
+  (:require [utils :refer [input-for-day test-ns]]
             [clojure.string :refer [split-lines split]]
             [clojure.test :refer [deftest testing is]]))
 
@@ -48,7 +48,7 @@
 B X
 C Z")
 
-(def input (slurp (io/resource "inputs/day02.txt")))
+(def input (input-for-day 2))
 
 (deftest solve1-test
   (testing "part 1"

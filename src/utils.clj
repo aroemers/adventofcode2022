@@ -1,5 +1,5 @@
 (ns utils
-  (:require [clj-http.lite.client :as http]
+  (:require [clj-http.client :as http]
             [clojure.java.io :as io]))
 
 ;;; Downloading input
@@ -25,6 +25,20 @@
 (defn input-for-day [day]
   (or (load-input-for-day day)
       (download-input-for-day day)))
+
+
+;;; Submitting answers
+
+(defn submit-answer [day part answer]
+  (if-let [session (System/getenv "AOC_SESSION")]
+    (let [response (http/request
+                    {:method           :post
+                     :url              (str "https://adventofcode.com/2022/day/" day "/answer")
+                     :headers          {"cookie" (str "session=" session)}
+                     :form-params      {:level part :answer answer}
+                     :follow-redirects true})]
+      (->> response :body (re-find #"<article>(.*?)</article>") second))
+    (throw (ex-info "No AOC_SESSION environment variable set" {}))))
 
 
 ;;; Testing

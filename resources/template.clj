@@ -2,7 +2,7 @@
   (:require [utils :refer [input-for-day test-ns submit-answer]]
             [clojure.repl :refer [doc pst]]
             [clojure.set :as set]
-            [clojure.string :refer [split-lines split]]
+            [clojure.string :refer [split-lines split starts-with?]]
             [clojure.test :refer [deftest testing is]]))
 
 (def day XX)

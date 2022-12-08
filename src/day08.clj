@@ -11,8 +11,8 @@
 
 (defn input->grid [input]
   (vec (for [line (split-lines input)]
-                    (vec (for [char line]
-                           (- (long char) 48))))))
+         (vec (for [char line]
+                (- (long char) 48))))))
 
 (defn up [grid row column]
   (map #(nth % column) (take row grid)))

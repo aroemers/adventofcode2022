@@ -32,8 +32,8 @@
          tails   (repeat tail-count head)
          visited #{head}]
     (if-let [line (first lines)]
-      (let [[_ dir stepss] (re-matches #"(\w) (\d+)" line)
-            steps          (parse-long stepss)
+      (let [[_ dir steps-str] (re-matches #"(\w) (\d+)" line)
+            steps             (parse-long steps-str)
 
             [new-head new-tails new-visited]
             (loop [head    head
@@ -42,10 +42,10 @@
                    steps   steps]
               (if (< 0 steps)
                 (let [new-head  (move-head head dir)
-                      new-tails (vec (next (reductions move-tail new-head tails)))]
+                      new-tails (next (reductions move-tail new-head tails))]
                   (recur new-head new-tails (conj visited (last new-tails)) (dec steps)))
                 [head tails visited]))]
-        (recur (rest lines) new-head new-tails (set/union visited new-visited)))
+        (recur (rest lines) new-head new-tails new-visited))
       (count visited))))
 
 ;;; Tests
